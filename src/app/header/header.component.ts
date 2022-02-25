@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
     templateUrl : "header.component.html",
@@ -6,5 +6,13 @@ import { Component } from "@angular/core";
 })
 export class HeaderComponent {
 
+    @Output() navLinkClicked = new EventEmitter<string>();
+
+    recipeClicked(){
+        this.navLinkClicked.emit('Recipe');
+    }
+    shoppingListClicked(){
+        this.navLinkClicked.emit('ShoppingList');
+    }
 
 }

@@ -1,9 +1,13 @@
-<app-header></app-header>
+<app-header (navLinkClicked)="onNavLinkClicked($event)"></app-header>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <app-recipes></app-recipes>
-            <app-shopping-list></app-shopping-list>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <app-recipes
+        *ngIf="currentTopic === 'Recipe'"
+      ></app-recipes>
+      <app-shopping-list
+        *ngIf="currentTopic === 'ShoppingList'"
+      ></app-shopping-list>
     </div>
+  </div>
 </div>
