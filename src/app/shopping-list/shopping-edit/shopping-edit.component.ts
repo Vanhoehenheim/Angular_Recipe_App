@@ -1,12 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { Ingredient } from 'src/app/shared/ingredient.model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ShoppingListService } from '../shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -14,19 +7,26 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
   styleUrls: ['./shopping-edit.component.css'],
 })
 export class ShoppingEditComponent implements OnInit {
-  @Output() emitIngredient = new EventEmitter<Ingredient>();
-
-  @ViewChild('nameInput', { static: true }) ingredientName: ElementRef | undefined;
-  @ViewChild('amountInput', { static: true }) ingredientAmount: ElementRef | undefined;
-  constructor() {}
+  @ViewChild('nameInput', { static: true }) ingredientName:
+    | ElementRef
+    | undefined;
+  @ViewChild('amountInput', { static: true }) ingredientAmount:
+    | ElementRef
+    | undefined;
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit(): void {}
- 
+
   onAddIngredient() {
-    console.log(this.ingredientName?.nativeElement.value)
-    this.emitIngredient.emit({
-      name: this.ingredientName?.nativeElement.value,
-      amount: this.ingredientAmount?.nativeElement.value,
-    });
+    if (
+      this.ingredientName?.nativeElement.value &&
+      this.ingredientName.nativeElement.value !== ''
+    ) {
+      this.shoppingListService.updateIngredients(
+        this.ingredientName.nativeElement.value,
+        this.ingredientAmount?.nativeElement.value
+      );
+      console.log(this.shoppingListService.getIngredients());
+    }
   }
 }
