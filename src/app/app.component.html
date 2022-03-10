@@ -1,13 +1,15 @@
-<app-header (navLinkClicked)="onNavLinkClicked($event)"></app-header>
+<app-header></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes
+      <router-outlet></router-outlet>
+      <!-- <app-recipes
         *ngIf="currentTopic === 'Recipe'"
       ></app-recipes>
       <app-shopping-list
         *ngIf="currentTopic === 'ShoppingList'"
-      ></app-shopping-list>
+      ></app-shopping-list> -->
+      <!-- ?No need for ngIf since you added routing -->
     </div>
   </div>
 </div>

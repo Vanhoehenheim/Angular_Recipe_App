@@ -1,22 +1,40 @@
-import { EventEmitter, Output } from "@angular/core";
-import { Recipe } from "./recipe.model";
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Recipe } from './recipe.model';
 
-export class RecipeService{
+@Injectable()
+export class RecipeService {
+  recipeSelected = new EventEmitter<Recipe>(); 
+  private recipes: Recipe[] = [
+    new Recipe(
+      'French Toast',
+      'French toast is a dish made of sliced bread soaked in beaten eggs and typically milk, then pan fried.',
+      'https://images.unsplash.com/photo-1592222720114-38bcd5fc2c14?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+      [
+        { name: 'Eggs', amount: 10 },
+        { name: 'Bread', amount: 6 },
+      ]
+    ),
+    new Recipe(
+      'Protein Shake',
+      'Healthy Tasty Protein shake with 23g protein.',
+      'https://images.unsplash.com/photo-1622818425825-1dcdb3a39c30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
+      [
+        { name: 'Protien', amount: 1 },
+        { name: 'Milk', amount: 10 },
+      ]
+    ),
+  ];
+  constructor(private shoppingListService : ShoppingListService){}
+  getRecipes() {
+    return this.recipes.slice();
+  }
+  getRecipe(recipeIndex : number){
+    return this.recipes[recipeIndex];
+  }
 
-    recipeSelected = new EventEmitter<Recipe>();  
-    private recipes: Recipe[] = [
-        new Recipe(
-          'Test Recipe',
-          'Test Des. This is a test',
-          'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_960_720.jpg'
-        ),
-        new Recipe(
-          'Test Recipe 2',
-          'Test Des. This is a test 2',
-          'https://cdn.pixabay.com/photo/2016/06/15/19/09/food-1459693_960_720.jpg'
-        ),
-      ];
-    getRecipes(){
-        return this.recipes.slice();
-    }
+  sendToShoppingList(ingredients : Ingredient[]){
+    this.shoppingListService.addRecipeIngredients(ingredients)
+  }
 }

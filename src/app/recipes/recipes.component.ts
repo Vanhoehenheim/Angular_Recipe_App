@@ -6,21 +6,10 @@ import { RecipeService } from './recipe.service';
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
-  providers:[RecipeService]
+  providers: [RecipeService],
 })
 export class RecipesComponent implements OnInit {
+  constructor() {}
 
-  recipeToBeSentToDetails : Recipe = { name: '', description: '', imagePath: ''};
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  recievedRecipeToBeDisplayed(recipe : Recipe){
-    this.recipeToBeSentToDetails.name = recipe.name;
-    this.recipeToBeSentToDetails.description = recipe.description;
-    this.recipeToBeSentToDetails.imagePath = recipe.imagePath;
-  }
-
+  ngOnInit(): void {}
 }
