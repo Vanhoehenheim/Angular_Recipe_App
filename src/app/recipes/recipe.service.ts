@@ -1,11 +1,12 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
 
 @Injectable()
 export class RecipeService {
-  recipeSelected = new EventEmitter<Recipe>(); 
+  // recipeSelected = new Subject<Recipe>(); We're using routing to pass the selected recipe now. 
   private recipes: Recipe[] = [
     new Recipe(
       'French Toast',
@@ -34,7 +35,7 @@ export class RecipeService {
     return this.recipes[recipeIndex];
   }
 
-  sendToShoppingList(ingredients : Ingredient[]){
-    this.shoppingListService.addRecipeIngredients(ingredients)
-  }
+  // sendToShoppingList(ingredients : Ingredient[]){
+  //   this.shoppingListService.addRecipeIngredients(ingredients)
+  // }
 }
